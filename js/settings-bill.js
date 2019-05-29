@@ -1,22 +1,50 @@
-// get a reference to the sms or call radio buttons
+var billItemTypeWithSettings = document.querySelector(".billItemTypeWithSettings");
+var buttonAddBtnElem = document.querySelector(".buttonAddBtn");
+var updateSettingsAddBtnElem = document.querySelector(".updateSettingsAddBtn");
+var callCostSetting = document.querySelector(".callCostSetting");
+var smsCostSetting = document.querySelector(".smsCostSetting");
+var callTotalSettingsElem = document.querySelector(".callTotalSettings");
+var smsTotalSettingsElem = document.querySelector(".smsTotalSettings");
+var totalSettingsElem = document.querySelector(".totalSettings");
+var warningLevelSetting = document.querySelector(".warningLevelSetting");
+var criticalLevelSetting = document.querySelector(".criticalLevelSetting");
 
-// get refences to all the settings fields
+var callsTotalSet = 0;
+var smsTotalSettings = 0;
+var totalSettings = 0;
 
-//get a reference to the add button
+var callCostTest = 0;
+var smsCostTest = 0;
 
-//get a reference to the 'Update settings' button
+function updateSettingsAddBtn(){
+    callCostTest = callsTotalSet.value;
+    smsCostTest = smsTotalSettings.value;
+    }
 
-// create a variables that will keep track of all the settings
+function buttonAddBtn(){
+    var billItem = billItemTypeWithSettings.value.trim();
 
-// create a variables that will keep track of all three totals.
+    if (billItem.value === "call"){
+        callsTotalSet += Number(callCostTest);
+    }
+    else if (billItem.value === "sms"){
+        smsTotalSettings += Number(smsCostTest);
+    }
+    
+    callTotalSettingsElem.innerHTML = callsTotalSet.toFixed(2);
+    smsTotalSettingsElem.innerHTML = smsTotalSettings.toFixed(2);
+    var totalCost = callsTotalSet + smsTotalSettings;
+    totalSettingsElem.innerHTML = totalSettings.toFixed(2);
 
-//add an event listener for when the 'Update settings' button is pressed
+    
+    
+    if (totalSettings >= criticalLevelSetting){
+        totalSettingsElem.classList.add("danger");
+    }
+    else if (totalSettings >= warningLevelSetting){
+        totalSettingsElem.classList.add("warning");
+    }
+}
 
-//add an event listener for when the add button is pressed
-
-//in the event listener get the value from the billItemTypeRadio radio buttons
-// * add the appropriate value to the call / sms total
-// * add the appropriate value to the overall total
-// * add nothing for invalid values that is not 'call' or 'sms'.
-// * display the latest total on the screen.
-// * check the value thresholds and display the total value in the right color.
+buttonAddBtnElem.addEventListener('click', buttonAddBtn);
+updateSettingsAddBtnElem.addEventListener('click', updateSettingsAddBtn);
