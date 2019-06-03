@@ -6,11 +6,11 @@ var totalOneElement = document.querySelector(".totalOne")
 
 var totalCalls = 0;
 var smsTotalOne = 0;
-var costTotal = 0;
+var costsTotal = 0;
 
 function textBillTotal(){
     var billEntered = billTypeText.value.trim();
-
+console.log(billEntered)
     if (billEntered === "call"){
         totalCalls += 2.75;
     }
@@ -23,10 +23,10 @@ function textBillTotal(){
     var costsTotal = totalCalls + smsTotalOne;
     totalOneElement.innerHTML = costsTotal.toFixed(2);
 
-    if (costTotal >= 50){
+    if (costsTotal >= 50){
         totalOneElement.classList.add("danger");
     }
-    else if (costTotal >= 30){
+    else if (costsTotal >= 30){
         totalOneElement.classList.add("warning");
     }
 }
