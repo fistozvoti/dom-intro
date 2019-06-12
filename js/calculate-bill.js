@@ -3,41 +3,25 @@ var billStringField = document.querySelector(".billString");
 var billTotalElement = document.querySelector(".billTotal");
 var calculateElement = document.querySelector(".calculateBtn");
 
+var calculateInstance = CalculateBillManager();
 
-function calculateBtnClicked(){
-    var billTotal = 0;
+function calculateBtnClicked() {
     var billString = billStringField.value;
-    var billItems = billString.split(",");
-  
-    for(var i=0; i<billItems.length; i++){
-        var billItem = billItems[i].trim();
-        if (billItem === "call"){
-            billTotal += 2.75;
-        }
-        else if (billItem === "sms"){
-            billTotal += 0.75;
-           
-        }
-    }
-     
-    var roundedBillTotal = billTotal.toFixed(2);
+    calculateInstance.add(billString);
+
+    var roundedBillTotal = calculateInstance.total().toFixed(2);
     billTotalElement.innerHTML = roundedBillTotal;
 
 
-   
-    if (billTotal >= 20){
-        billTotalElement.classList.add("warning");
-        billTotalElement.classList.remove("danger");
-    }
-    if (billTotal >= 30){
-        billTotalElement.classList.add("danger");
-        billTotalElement.classList.remove("warning");
-    }
-    if(billTotal < 20){
-        billTotalElement.classList.remove("warning");
-        billTotalElement.classList.remove("danger");
-    }
-   
+    billTotalElement.classList.remove("warning");
+    billTotalElement.classList.remove("danger");
+
+
+    billTotalElement.classList.add(calculateInstance.level());
+
+    calculateInstance.clear();
+
+
 }
 
 calculateElement.addEventListener('click', calculateBtnClicked);
