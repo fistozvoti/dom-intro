@@ -4,36 +4,31 @@ var callTotalTwoElement = document.querySelector(".callTotalTwo")
 var smsTotalTwoElement = document.querySelector(".smsTotalTwo")
 var totalTwoElement = document.querySelector(".totalTwo")
 
+var compiledTemplate = document.querySelector(".template").innerHTML;
+var handlebar = Handlebars.compile(createTemplate);
+var getsData = document.querySelector(".dataForTotals")
 
-var callsTotal = 0;
-var smsTotalTwo = 0;
-// var totalCosts = 0;
+var getRadioFactory = RadioBillFactory();
+radioBill();
 
-function radioBillAddBtn(){
+function radioBill() {
     var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
-    
-    if (checkedRadioBtn){
+    if (checkedRadioBtn) {
         var billItemType = checkedRadioBtn.value
     }
-// console.log(billItem)
-    if (billItemType === "call"){
-        callsTotal += 2.75;
-    }
-    else if (billItemType === "sms"){
-        smsTotalTwo += 0.75;
-    }
-    
-    callTotalTwoElement.innerHTML = callsTotal.toFixed(2);
-    smsTotalTwoElement.innerHTML = smsTotalTwo.toFixed(2);
-    var totalCosts = callsTotal + smsTotalTwo;
-    totalTwoElement.innerHTML = totalCosts.toFixed(2);
 
-    if (totalCosts >= 50){
-        totalTwoElement.classList.add("danger");
-    }
-    else if (totalCosts >= 30){
-        totalTwoElement.classList.add("warning");
-    }
+    getRadioFactory.dataSet(billItemType);
+    var levelColors = getRadioFactory.whatsTheLevel();
+
+
+    var createHandlers = handlebar({
+
+        call: "R" + getRadioFactory.gettingCalls().toFixed(2),
+        sms: "R" + getRadioFactory.gettingSMSs().toFixed(2),
+        total: "R" + getRadioFactory.gettingAllTotals().toFixed(2),
+        levelColors
+    });
+    getsData.innerHTML = createHandlers;
+
 }
-
-radioBillAddBtnElement.addEventListener('click', radioBillAddBtn);
+radioBillAddBtnElement.addEventListener('click', radioBill);

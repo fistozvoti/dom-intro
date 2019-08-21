@@ -9,7 +9,7 @@ var smsTotalSettingsElem = document.querySelector(".smsTotalSettings");
 var totalSettingsElem = document.querySelector(".totalSettings");
 var warningLevelSetting = document.querySelector(".warningLevelSetting");
 var criticalLevelSetting = document.querySelector(".criticalLevelSetting");
-
+var settingsUpdateOne = settingsUpdate();
 
 var callsTotalSet = 0;
 var smsTotalSet = 0;
@@ -20,12 +20,12 @@ var smsCostTest = 0;
 var warningLevel = 0;
 var criticalLevel = 0;
 
-function updateSettingsAddBtn() {
-    callCostTest = Number(callCostSetting.value);
-    smsCostTest = Number(smsCostSetting.value);
-    warningLevel = Number(warningLevelSetting.value);
-    criticalLevel = Number(criticalLevelSetting.value);
 
+function updateSettingsAddBtn() {
+
+    
+
+    settingsUpdateOne.getValues();
 
     if (totalSet >= criticalLevel) {
         totalSettingsElem.classList.remove("warning");
@@ -45,20 +45,17 @@ function buttonAddBtn() {
         var buttonAddBtnElem = document.querySelector(".buttonAddBtn");
         if (buttonAddBtnElem) {
             var billItemTypeWithSettings = document.querySelector("input[name='billItemTypeWithSettings']:checked");
-
-            if (billItemTypeWithSettings.value === "call") {
-                callsTotalSet += callCostTest;
-            }
-            else if (billItemTypeWithSettings.value === "sms") {
-                smsTotalSet += smsCostTest;
-            }
         }
 
-        callTotalSettingsElem.innerHTML = callsTotalSet.toFixed(2);
-        smsTotalSettingsElem.innerHTML = smsTotalSet.toFixed(2);
-        totalSet = callsTotalSet + smsTotalSet;
-        totalSettingsElem.innerHTML = totalSet.toFixed(2);
+        settingsUpdateOne.addingData(billItemTypeWithSettings)
 
+        var roundOffTotal = settingsUpdateOne.getTotals().toFixed(2)
+
+        // callTotalSettingsElem.innerHTML = settingsUpdateOne.getCallsTotalSet();
+        // smsTotalSettingsElem.innerHTML = settingsUpdateOne.getSmsTotalSet();
+        // totalSet = callsTotalSet + smsTotalSet;
+         totalSettingsElem.innerHTML = roundOffTotal;
+        
 
         if (totalSet >= criticalLevel) {
             totalSettingsElem.classList.remove("warning");
