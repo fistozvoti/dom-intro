@@ -2,7 +2,7 @@ function TextBillFactory() {
     var dataTotal = 0.0;
     var getCall = 0.0;
     var getSMS = 0.0;
-
+    //  set call
     function setData(data) {
         if (data === "call") {
             getCall += 2.75;

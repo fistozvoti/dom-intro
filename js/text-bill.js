@@ -11,7 +11,7 @@ var createData = document.querySelector(".textData")
 
 var getTextFactory = TextBillFactory();
 textBillTotal();
-
+// text bill total
 function textBillTotal(){
     
     getTextFactory.setData(billTypeText.value);
