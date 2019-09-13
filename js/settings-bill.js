@@ -9,37 +9,26 @@ var smsTotalSettingsElem = document.querySelector(".smsTotalSettings");
 var totalSettingsElem = document.querySelector(".totalSettings");
 var warningLevelSetting = document.querySelector(".warningLevelSetting");
 var criticalLevelSetting = document.querySelector(".criticalLevelSetting");
+
 var settingsUpdateOne = settingsUpdate();
 
-var callsTotalSet = 0;
-var smsTotalSet = 0;
-var totalSet = 0;
-
-var callCostTest = 0;
-var smsCostTest = 0;
-var warningLevel = 0;
-var criticalLevel = 0;
+// var totalSet = settingsUpdateOne.getTotals();
+// var warningLevel = settingsUpdateOne.getWarningLevel();
+// var criticalLevel = settingsUpdateOne.getCriticalLevel();
 
 
 function updateSettingsAddBtn() {
+    var callCost = callCostSetting.value;
+    var smsCost = smsCostSetting.value;
+    var warning = warningLevelSetting.value;
+    var critical = criticalLevelSetting.value
 
-    
-
-    settingsUpdateOne.getValues();
-
-    if (totalSet >= criticalLevel) {
-        totalSettingsElem.classList.remove("warning");
-        totalSettingsElem.classList.add("danger");
-    } else if (totalSet >= warningLevel) {
-        totalSettingsElem.classList.add("warning");
-        totalSettingsElem.classList.remove("danger");
-    } else {
-        totalSettingsElem.classList.remove("danger");
-        totalSettingsElem.classList.remove("warning");
-    }
+    settingsUpdateOne.getValues(callCost, smsCost, warning, critical);
 }
 
 function buttonAddBtn() {
+
+
 
     if (!(totalSet >= criticalLevel)) {
         var buttonAddBtnElem = document.querySelector(".buttonAddBtn");
@@ -51,11 +40,14 @@ function buttonAddBtn() {
 
         var roundOffTotal = settingsUpdateOne.getTotals().toFixed(2)
 
-        // callTotalSettingsElem.innerHTML = settingsUpdateOne.getCallsTotalSet();
-        // smsTotalSettingsElem.innerHTML = settingsUpdateOne.getSmsTotalSet();
-        // totalSet = callsTotalSet + smsTotalSet;
-         totalSettingsElem.innerHTML = roundOffTotal;
-        
+        callTotalSettingsElem.innerHTML = settingsUpdateOne.getCallCost().toFixed(2);
+        smsTotalSettingsElem.innerHTML = settingsUpdateOne.getSmsCost().toFixed(2);
+        totalSettingsElem.innerHTML = roundOffTotal;
+
+        var totalSet = settingsUpdateOne.getTotals();
+        var warningLevel = settingsUpdateOne.getWarningLevel();
+        var criticalLevel = settingsUpdateOne.getCriticalLevel();
+
 
         if (totalSet >= criticalLevel) {
             totalSettingsElem.classList.remove("warning");
